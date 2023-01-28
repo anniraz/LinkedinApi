@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'apps.comments',
     'apps.post',
     'apps.user',
+    'apps.favorites',
+    'apps.subscriptions',
 ]
 
 MIDDLEWARE = [
