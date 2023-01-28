@@ -80,3 +80,14 @@ class MessageDetailApiView(generics.RetrieveUpdateDestroyAPIView):
 
 
 
+class LIstOfContacts(generics.ListAPIView):
+
+    '''Your all contacts list '''
+
+    queryset=ChatRoom.objects.all()
+    serializer_class=ChatRoomSerializer
+    permission_classes=[permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return ChatRoom.objects.filter(Q(sender=self.request.user)|Q(receiver=self.request.user))
+
