@@ -2,6 +2,7 @@ from django.urls import path
 from .views import *
 from rest_framework.routers import DefaultRouter
 
+
 router = DefaultRouter()
 
 router.register(
@@ -9,6 +10,20 @@ router.register(
     viewset=UsersApiView
 )
 
+router.register(
+    prefix="education",
+    viewset=EducationInformationApiView
+)
+
+router.register(
+    prefix="skill",
+    viewset=SkillsApiView
+)
+
+router.register(
+    prefix="position",
+    viewset=PositionApiView
+)
 
 
 urlpatterns = router.urls

@@ -1,6 +1,28 @@
 from rest_framework import serializers
 
-from apps.user.models import User
+from apps.user.models import User,Position,Skills,EducationInformation
+
+
+
+
+class PositionSerializers(serializers.ModelSerializer):
+    class Meta:
+        model=Position
+        fields='__all__'
+        read_only_fields=('user',)
+
+class SkillsSerializers(serializers.ModelSerializer):
+    class Meta:
+        model=Skills
+        fields='__all__'
+        read_only_fields=('user',)
+
+class EducationInformationSerializers(serializers.ModelSerializer):
+    class Meta:
+        model=EducationInformation
+        fields='__all__'
+        read_only_fields=('user',)
+
 
 
 

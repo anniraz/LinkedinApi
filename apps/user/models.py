@@ -24,3 +24,108 @@ class User(AbstractUser):
 
     class Meta:
         ordering = ("id",)
+
+
+class Position(models.Model):
+
+    EMPLOYMENT_TYPE=(
+        ('full employment','full employment'),
+        ('part-time employment','part-time employment'),
+        ('entrepreneur','entrepreneur'),
+        ('freelance','freelance'),
+        ('contract','contract'),
+        ('internship','internship'),
+        ('vocational training','vocational training'),
+        ('Seasonal','Seasonal'),
+    )
+
+    JOB_TYPE=(
+        ('office work','office work'),
+        ('hybrid workflow','hybrid workflow'),
+        ('remote work','remote work'),
+    )
+
+    user=models.ForeignKey(User, on_delete=models.CASCADE,related_name='users_position')
+    name=models.CharField(max_length=200)
+    employment_type=models.CharField(max_length=200,choices=EMPLOYMENT_TYPE)
+    company_name=models.CharField(max_length=200)
+    location=models.CharField(max_length=255)
+    job_type=models.CharField(max_length=50,choices=JOB_TYPE)
+
+    def __str__(self):
+        return f'{self.user} {self.name} {self.company_name}'
+
+
+
+class Skills(models.Model):
+
+    user=models.ForeignKey(User, on_delete=models.CASCADE,related_name='users_skills')
+    title=models.CharField(max_length=255)
+
+    def __str__(self):
+        return f'{self.user} {self.title}'
+
+
+class EducationInformation(models.Model):
+
+    user=models.ForeignKey(User, on_delete=models.CASCADE,related_name='users_education')
+    educational_institution=models.CharField(max_length=255)
+    degree=models.CharField(max_length=200)
+    specialization=models.CharField(max_length=255)
+    start_date=models.DateField()
+    end_date=models.DateField()
+    average_score=models.PositiveIntegerField()
+    activities_communities=models.CharField(max_length=255)
+
+
+    def __str__(self):
+        return f'{self.user}: {self.educational_institution}'
+
+
+
+
+
+
+
+
+'''
+||Добавление сведений об образовании
+   *Уч. заведение 
+     Степень например степень бакалавка
+     Специализация например бизнес
+      Дата начала
+      Год окончания (или ожидаемый)
+      Средний балл
+      Деятельность и сообщества например научный клуб,волейбол
+
+
+ ||Добавление должности
+        Название: например: менеджер по продажам
+        Тип занятости
+            *полная занятость
+            *частичная занятость
+            *предприниматель
+            *фриланс
+            *контракт 
+            *стажировка
+            *професиональное обучение
+            *Seasonal
+        Название компании 
+        Местоположение
+    Тип места работы
+        работа в офисе
+        гибридный формат работы
+        удаленная работа
+
+    На данный момент я работаю в этой должности
+
+
+||Добавление навыков
+        *Навык 
+
+
+
+|| Добавление общих сведений
+  *textfild
+'''
+

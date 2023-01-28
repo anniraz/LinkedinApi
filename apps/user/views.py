@@ -3,7 +3,7 @@ from rest_framework import mixins, permissions
 
 from apps.user.models import *
 from apps.user.serializers import *
-from apps.user.permissions import IsOwner
+from apps.user.permissions import IsOwner,IsOwn
 
 
 
@@ -17,6 +17,67 @@ class UsersApiView(GenericViewSet,
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+
+    def get_permissions(self):
+        if self.action in ['update', 'partial_update', 'destroy']:
+            return (IsOwn(),)
+        return (permissions.AllowAny(),)
+
+
+
+class PositionApiView(GenericViewSet,
+                    mixins.CreateModelMixin,
+                    mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin):
+
+    queryset=Position.objects.all()
+    serializer_class=PositionSerializers
+
+
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
+
+    def get_permissions(self):
+        if self.action in ['update', 'partial_update', 'destroy']:
+            return (IsOwner(),)
+        return (permissions.AllowAny(),)
+
+
+
+
+class SkillsApiView(GenericViewSet,
+                    mixins.CreateModelMixin,
+                    mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin):
+                    
+    queryset=Skills.objects.all()
+    serializer_class=SkillsSerializers
+
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
+
+
+    def get_permissions(self):
+        if self.action in ['update', 'partial_update', 'destroy']:
+            return (IsOwner(),)
+        return (permissions.AllowAny(),)
+
+
+
+class EducationInformationApiView(GenericViewSet,
+                    mixins.CreateModelMixin,
+                    mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin):
+                    
+    queryset=EducationInformation.objects.all()
+    serializer_class=EducationInformationSerializers
+
+
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
 
     def get_permissions(self):
         if self.action in ['update', 'partial_update', 'destroy']:
