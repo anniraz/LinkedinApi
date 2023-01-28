@@ -1,9 +1,8 @@
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 
-from rest_framework import viewsets,permissions,filters
+from rest_framework import viewsets,permissions
 from rest_framework.response import Response
-from django_filters.rest_framework import DjangoFilterBackend
 
 from apps.post.serializers import PostSerializer,PostImageSerializer,PostLikeSerializers,PostTagSerializer
 from apps.post.models import Post,PostImage,PostsLike,PostTag
@@ -18,8 +17,7 @@ class PostApiViewSet(viewsets.ModelViewSet):
     
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    filter_backends = [DjangoFilterBackend,filters.OrderingFilter]
-    filterset_fields = ['tags','title','user','create_at']
+
 
     def get_permissions(self):
         if self.action in ['update', 'partial_update', 'destroy']:

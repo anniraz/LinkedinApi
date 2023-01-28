@@ -41,8 +41,10 @@ urlpatterns = [
     path('user/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     # apps
-    path('',include('apps.user.urls')),
+    path('user/',include('apps.user.urls')),
     path('chat/',include('apps.chat.urls')),
+    path('comment/',include('apps.comments.urls')),
+    path('post/',include('apps.post.urls')),
 
     # swagger
     path('swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
