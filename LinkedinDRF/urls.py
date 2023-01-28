@@ -45,6 +45,9 @@ urlpatterns = [
     path('chat/',include('apps.chat.urls')),
     path('comment/',include('apps.comments.urls')),
     path('post/',include('apps.post.urls')),
+    path('favorites/',include('apps.favorites.urls')),
+    path('subscriptions/',include('apps.subscriptions.urls')),
+    
 
     # swagger
     path('swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),

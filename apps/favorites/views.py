@@ -1,6 +1,6 @@
 from rest_framework import viewsets,filters
 from rest_framework.response import Response
-from django_filters.rest_framework import DjangoFilterBackend
+# from django_filters.rest_framework import DjangoFilterBackend
 
 from apps.favorites.models import Favorite,FavoriteFolder
 from apps.favorites.serializers import FavoriteSerializer,FavoriteCategorySerializer
