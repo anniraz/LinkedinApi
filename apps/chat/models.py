@@ -5,13 +5,15 @@ User=get_user_model()
 
 
 class ChatRoom(models.Model):
-      receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
-      sender= models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')        
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
+    sender= models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')        
+    is_contact = models.BooleanField(default=False)
 
-      def __str__(self):
+    
+    def __str__(self):
            return f'reciever:{self.receiver} sender:{self.sender}'
       
-      class Meta:
+    class Meta:
         unique_together=(('receiver','sender',),)
 
 

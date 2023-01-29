@@ -8,6 +8,7 @@ urlpatterns = [
     path('contact/delete/<int:pk>/',ChatRoomDeleteApiView.as_view()),
     path('contacts/',LIstOfContacts.as_view()),
     path('message/<int:pk>/',MessageDetailApiView.as_view()),
-
+    path('contacts/for/confirmation/',ContactUnderConsiderationApiView.as_view()),
+    path('contact/confirm/<int:pk>/',ContactToConfirmApiView.as_view())
 
 ]

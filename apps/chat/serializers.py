@@ -8,6 +8,14 @@ class ChatRoomSerializer(serializers.ModelSerializer):
         fields = ['id','receiver','sender',]
         read_only_fields = ('sender',)
 
+# and chat_room.is_contact==True
+
+class ContactUnderConsiderationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChatRoom
+        fields = ['id','receiver','sender','is_contact']
+        read_only_fields = ('id','sender','receiver',)
+
 
 class MessageSerializer(serializers.ModelSerializer):
 

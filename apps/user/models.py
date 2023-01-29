@@ -45,7 +45,7 @@ class Position(models.Model):
         ('remote work','remote work'),
     )
 
-    user=models.ForeignKey(User, on_delete=models.CASCADE,related_name='users_position')
+    user=models.ForeignKey(User, on_delete=models.CASCADE,unique=True,related_name='users_position')
     name=models.CharField(max_length=200)
     employment_type=models.CharField(max_length=200,choices=EMPLOYMENT_TYPE)
     company_name=models.CharField(max_length=200)
