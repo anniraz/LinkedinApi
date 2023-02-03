@@ -6,6 +6,9 @@ from apps.user.permissions import IsOwner
 
 
 class CommentApiViewSet(viewsets.ModelViewSet):
+    
+    '''CRUD for comments '''
+
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
@@ -21,6 +24,8 @@ class CommentApiViewSet(viewsets.ModelViewSet):
 
 
 class CommentLikeApiView(viewsets.ModelViewSet):
+
+    ''' likes for comment '''
 
     queryset=CommentLike.objects.all()
     serializer_class=CommentLikeSerializer

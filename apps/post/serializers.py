@@ -18,7 +18,7 @@ class PostImageSerializer(serializers.ModelSerializer):
 class PostVideoSerializer(serializers.ModelSerializer):
     class Meta:
         model= PostVideo
-        fields='__all__'
+        fields = "__all__"
 
 class PostImagesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -39,6 +39,7 @@ class PostSerializer(serializers.ModelSerializer):
                   'user',
                   "tags",
                   'post_images',
+                  'post_video',
                   'list_of_likes',
                   )
 

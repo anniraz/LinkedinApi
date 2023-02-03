@@ -1,5 +1,6 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.viewsets import GenericViewSet
-from rest_framework import mixins, permissions
+from rest_framework import mixins, permissions,filters
 
 from apps.user.models import *
 from apps.user.serializers import *
@@ -16,6 +17,8 @@ class UsersApiView(GenericViewSet,
                    
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    filter_backends = [DjangoFilterBackend,filters.OrderingFilter]
+    filterset_fields = ['email','first_name','phone_number']
 
 
     def get_permissions(self):

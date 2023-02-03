@@ -20,7 +20,7 @@ class Post(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.title}---{self.user.username}"
+        return f"{self.title}---{self.user}"
 
     class Meta:
         ordering = ('create_at',)
@@ -32,7 +32,7 @@ class PostImage(models.Model):
     image = models.ImageField(upload_to='post_image/')
 
     def __str__(self):
-        return f"{self.post.title}---{self.post.user.username}"   
+        return f"{self.post.title}---{self.post.user}"   
 
 
 class PostVideo(models.Model):
@@ -40,7 +40,7 @@ class PostVideo(models.Model):
     video = models.FileField(upload_to='post_video/')
 
     def __str__(self):
-        return f"{self.post.title}---{self.post.user.username}"  
+        return f"{self.post.title}---{self.post.user.email}"  
 
 
 class PostsLike(models.Model):
