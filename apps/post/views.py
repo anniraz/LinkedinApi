@@ -4,8 +4,8 @@ from django.contrib.auth import get_user_model
 from rest_framework import viewsets,permissions
 from rest_framework.response import Response
 
-from apps.post.serializers import PostSerializer,PostImageSerializer,PostLikeSerializers,PostTagSerializer
-from apps.post.models import Post,PostImage,PostsLike,PostTag
+from apps.post.serializers import PostSerializer,PostImageSerializer,PostLikeSerializers,PostTagSerializer,PostVideoSerializer
+from apps.post.models import Post,PostImage,PostsLike,PostTag,PostVideo
 from apps.post.permissions import IsPostOwner
 from apps.user.permissions import IsOwner
 
@@ -61,6 +61,29 @@ class PostImageApiViewSet(viewsets.ModelViewSet):
         if user==owner:
             return super().create(request,*args, **kwargs)
         return Response({"ERROR":"You cannot add an image, you are not the owner of this post"})
+
+
+class PostVideoApiViewSet(viewsets.ModelViewSet):
+
+    queryset = PostVideo.objects.all()
+    serializer_class = PostVideoSerializer
+
+    def get_permissions(self):
+        if self.action in ['update', 'partial_update', 'destroy',]:
+            return (IsPostOwner(), )
+        else:
+            return (permissions.IsAuthenticated(),)  
+
+
+    def create(self, request, *args, **kwargs):
+        post = request.data['post']
+        owner=Post.objects.get(id=post).user
+        user = request.user
+        if user==owner:
+            return super().create(request,*args, **kwargs)
+        return Response({"ERROR":"You cannot add an video, you are not the owner of this post"})
+
+
 
 
 

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.post.models import Post, PostImage,PostsLike,PostTag
+from apps.post.models import Post, PostImage,PostsLike,PostTag,PostVideo
 
 class PostLikeSerializers(serializers.ModelSerializer):
     class Meta:
@@ -15,7 +15,10 @@ class PostImageSerializer(serializers.ModelSerializer):
         model = PostImage
         fields = "__all__"
 
-
+class PostVideoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= PostVideo
+        fields='__all__'
 
 class PostImagesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,6 +28,7 @@ class PostImagesSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     post_images = PostImagesSerializer(many=True, read_only=True)
+    post_video = PostVideoSerializer(many=True, read_only=True)
     list_of_likes = PostLikeSerializers(many=True, read_only=True)
 
     class Meta:
