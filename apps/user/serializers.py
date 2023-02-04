@@ -3,6 +3,12 @@ from rest_framework import serializers
 from apps.user.models import User,Position,Skills,EducationInformation
 
 
+class IsPremiumSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User
+        fields=['is_premium','premium_date','email']
+        read_only_fields=('email','premium_date',)
+
 
 
 class PositionSerializers(serializers.ModelSerializer):
@@ -11,11 +17,15 @@ class PositionSerializers(serializers.ModelSerializer):
         fields='__all__'
         read_only_fields=('user',)
 
+
+
 class SkillsSerializers(serializers.ModelSerializer):
     class Meta:
         model=Skills
         fields='__all__'
         read_only_fields=('user',)
+
+
 
 class EducationInformationSerializers(serializers.ModelSerializer):
     class Meta:

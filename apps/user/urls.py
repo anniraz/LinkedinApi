@@ -25,5 +25,9 @@ router.register(
     viewset=PositionApiView
 )
 
+router.register(
+    prefix='premium',
+    viewset=PremiumViewSet
+)
 
 urlpatterns = router.urls
