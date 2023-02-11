@@ -44,7 +44,7 @@ class PositionApiView(GenericViewSet,
     def get_permissions(self):
         if self.action in ['update', 'partial_update', 'destroy']:
             return (IsOwner(),)
-        return (permissions.AllowAny(),)
+        return (permissions.IsAuthenticated(),)
 
 
 
@@ -65,7 +65,7 @@ class SkillsApiView(GenericViewSet,
     def get_permissions(self):
         if self.action in ['update', 'partial_update', 'destroy']:
             return (IsOwner(),)
-        return (permissions.AllowAny(),)
+        return (permissions.IsAuthenticated(),)
 
 
 
@@ -85,7 +85,7 @@ class EducationInformationApiView(GenericViewSet,
     def get_permissions(self):
         if self.action in ['update', 'partial_update', 'destroy']:
             return (IsOwner(),)
-        return (permissions.AllowAny(),)
+        return (permissions.IsAuthenticated(),)
 
 
 
@@ -93,7 +93,6 @@ class EducationInformationApiView(GenericViewSet,
 
 class PremiumViewSet(GenericViewSet,
                    mixins.RetrieveModelMixin,
-                   mixins.ListModelMixin,
                    mixins.UpdateModelMixin):
 
     queryset=User.objects.all()

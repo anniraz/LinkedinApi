@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.user',
     'apps.favorites',
     'apps.subscriptions',
+    'apps.events',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
     'utils.PremiumMiddleWare.UsersPremium',
+    'utils.UserStatusMiddleware.UserStatus',
 ]
 
 ROOT_URLCONF = 'LinkedinDRF.urls'

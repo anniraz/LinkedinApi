@@ -47,6 +47,7 @@ urlpatterns = [
     path('post/',include('apps.post.urls')),
     path('favorites/',include('apps.favorites.urls')),
     path('subscriptions/',include('apps.subscriptions.urls')),
+    path('events/',include('apps.events.urls')),
     
 
     # swagger

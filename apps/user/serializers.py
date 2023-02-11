@@ -37,6 +37,11 @@ class EducationInformationSerializers(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+
+    users_position=PositionSerializers(many=True, read_only=True)
+    users_skills=SkillsSerializers(many=True, read_only=True)
+    users_education=EducationInformationSerializers(many=True, read_only=True)
+
     class Meta:
         model = User
         fields = (
@@ -45,11 +50,17 @@ class UserSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             'phone_number',
+            'header',
             'image',
+            'last_action',
+            'is_online',
             'is_premium',
+            'users_position',
+            'users_skills',
+            'users_education',
             'password',
                   )
-        read_only_fields=('is_premium',)
+        read_only_fields=('is_premium','last_action','is_online',)
 
 
     def create(self, validated_data):

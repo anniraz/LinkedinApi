@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.contrib.auth import get_user_model
 
 from rest_framework import generics,status
@@ -11,6 +12,7 @@ User = get_user_model()
 
 
 class FollowApiView(generics.CreateAPIView):
+    
     queryset = Follower.objects.all()
     serializer_class = FollowSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -18,8 +20,15 @@ class FollowApiView(generics.CreateAPIView):
     def perform_create(self, serializer):
         return serializer.save(from_user=self.request.user)
 
+    def create(self,request,*args, **kwargs):
+        to_user = request.data['to_user']
+        if int(to_user) == request.user.pk:
+            return Response({'ERROR':"You can't follow yourself"})
+        return super().create(request,*args, **kwargs)
+
 
 class FollowsApiView(generics.ListAPIView):
+
     serializer_class = FollowSerializer
 
     def get_queryset(self):
@@ -28,7 +37,25 @@ class FollowsApiView(generics.ListAPIView):
         return Follower.objects.filter(from_user=user)
 
 
+class RecommendationApiView(generics.ListAPIView):
+
+    serializer_class = FollowSerializer
+    queryset=Follower.objects.all()
+
+    def get_queryset(self):
+
+        recomendation=[]
+        user=self.request.user
+        follows=Follower.objects.filter(from_user=user)
+        for i in follows:
+            if i.to_user != user :
+                recomendation.append(i.to_user.id)
+        return Follower.objects.filter(from_user__pk__in=recomendation).exclude(Q(from_user=user)|Q(to_user=user))
+
+
+
 class FollowersApiView(generics.ListAPIView):
+
     serializer_class = FollowSerializer
 
     def get_queryset(self):
@@ -37,7 +64,8 @@ class FollowersApiView(generics.ListAPIView):
         return Follower.objects.filter(to_user=user)
 
 
-class UnfollowApiView(generics.DestroyAPIView):
+class UnfollowApiView(generics.RetrieveDestroyAPIView):
+
     serializer_class=FollowSerializer
     queryset = Follower.objects.all()
 
@@ -49,7 +77,8 @@ class UnfollowApiView(generics.DestroyAPIView):
         return Response({'error': 'this user is not followed '})
 
 
-class DeleteFollowerApiView(generics.DestroyAPIView):
+class DeleteFollowerApiView(generics.RetrieveDestroyAPIView):
+
     serializer_class=FollowSerializer
     queryset = Follower.objects.all()
 

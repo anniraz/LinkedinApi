@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 from utils.PhoneNumberValidation import phone_validator
 
@@ -14,6 +15,10 @@ class User(AbstractUser):
     image = models.ImageField(upload_to='avatars/',blank=True, null=True)
     is_premium=models.BooleanField(default=False)
     premium_date=models.DateTimeField(blank=True, null=True)
+    header=models.CharField(max_length=255,blank=True, null=True)
+    last_action = models.DateTimeField(default=timezone.now, blank=True, null=True)
+    is_online = models.BooleanField(default=False, blank=True, null=True)
+
 
     REQUIRED_FIELDS=[]
     USERNAME_FIELD = "email"
@@ -55,7 +60,6 @@ class Position(models.Model):
 
     def __str__(self):
         return f'{self.user} {self.name} {self.company_name}'
-
 
 
 class Skills(models.Model):

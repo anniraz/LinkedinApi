@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
+from apps.post.models import Post
+
 User=get_user_model()
 
 
@@ -23,6 +25,7 @@ class Message(models.Model):
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver_message')
     sender= models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender_message')        
     message = models.CharField(max_length=1200)
+    post = models.ForeignKey(Post, related_name='send_publication', on_delete=models.CASCADE,null=True,blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
